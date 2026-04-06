@@ -1,40 +1,13 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro'
-
-const searchUrl =
-  'https://api.artic.edu/api/v1/artworks/search?q=dog&limit=9&page=3&fields=id,title,image_id,color'
-const res = await fetch(searchUrl)
+const res = await fetch('https://api.artic.edu/api/v1/artworks/search?q=dog&limit=9&page=3&fields=id,title,image_id,color')
 const artworksData = await res.json()
-const iiifBase = artworksData.config?.iiif_url ?? 'https://www.artic.edu/iiif/2'
-
+const imageBase = 'https://www.artic.edu/iiif/2'
+const imageEnd = '/full/843,/0/default.jpg'
 ---
 
-<MainLayout title="Dog art" description="Dog art">
-  <section class="artworks">
-		{ artworksData.data && (	
-			artworksData.data.map((artwork) => (
-				<div class="artwork" style={`--color-accent: hsl(${artwork.color.h}, ${artwork.color.s}%, ${artwork.color.l}%)`}>
-					<div class="artwork-image">
-					<img
-						src={`${iiifBase}/${artwork.image_id}/full/843,/0/default.jpg`}
-						alt={artwork.title}
-							width="843"
-							loading="lazy"
-						/>
-					</div>
-					<div class="artwork-title">
-						<h2 class="medium-heading">{artwork.title}</h2>
-						<a href={`/${artwork.id}`}>
-							View artwork
-						</a>
-					</div>
-				</div>
-			))
-		)}
-	</section>
-</MainLayout>
 
-<style>
+
+<!-- <style>
 	.artworks {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -79,4 +52,4 @@ const iiifBase = artworksData.config?.iiif_url ?? 'https://www.artic.edu/iiif/2'
 			}
 		}
 	}
-</style>
+</style> -->
