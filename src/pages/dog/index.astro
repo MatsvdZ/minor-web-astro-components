@@ -1,10 +1,27 @@
 ---
+import MainLayout from "../../layouts/MainLayout.astro"
+import Button from "../../components/Button.astro"
+import Artwork from "../../components/Artwork.astro"
+
 const res = await fetch('https://api.artic.edu/api/v1/artworks/search?q=dog&limit=9&page=3&fields=id,title,image_id,color')
 const artworksData = await res.json()
 const imageBase = 'https://www.artic.edu/iiif/2'
 const imageEnd = '/full/843,/0/default.jpg'
 ---
 
+<MainLayout title="Jad is te gek">
+	<h1>Dogs ofzo</h1>
+	<Button href="/" text="Cats zijn te gek" />
+		{artworksData.data.map(artwork => {
+		return (
+			<Artwork imageUrl={`${imageBase}/${artwork.image_id}${imageEnd}`} title={artwork.title} />
+			// <article>
+			// 	<img src={`${imageBase}/${artwork.image_id}${imageEnd}`} alt="{artwork.title}" />
+			// 	<h2>{artwork.title}</h2>
+			// </article>
+		)
+	})}
+</MainLayout>
 
 
 <!-- <style>

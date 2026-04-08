@@ -1,0 +1,27 @@
+---
+import Button from "./Button.astro"
+const { imageUrl, title } = Astro.props
+
+---
+
+<article>
+    <h2>{title}</h2>
+    <img src={imageUrl} alt="{title}" />
+    <Button href={imageUrl} text={title} />
+</article>
+
+<style>
+    article {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--gap);
+    }
+
+    img {
+        width: 50%;
+        height: auto;
+        position: relative;
+        border: var(--padding-inline) solid var(--color-accent);
+    }
+</style>
